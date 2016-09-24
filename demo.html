@@ -83,14 +83,14 @@
                         var newElement = this.cloneNode(true);
                         var completeStyle = window.getComputedStyle(this, null).cssText;
                         newElement.style.cssText = completeStyle;
-                        var finalXTranslation = (Math.random() - .5) / 2 * length;
+                        var finalXTranslation = (Math.random() - .5)  * length; // So that all hearts toss evenly both left and right sides
                         var finalYTranslation = (Math.random() + .2) / 2 * length;
-                        var angle = (finalYTranslation / finalXTranslation) * 45;
+                        var angle = Math.atan(finalYTranslation / finalXTranslation) * (180 / Math.PI);
                         var scale = Math.random() * varianceInSize;
                         newElement.setAttribute("finalXTranslation", finalXTranslation);
                         newElement.setAttribute("finalYTranslation", finalYTranslation);
                         newElement.setAttribute("scale", scale);
-                        newElement.style.transform = "rotate("+(Math.atan(finalYTranslation / finalXTranslation) * (180 / Math.PI))+"deg) ";
+                        newElement.style.transform = "rotate("+ angle +"deg) ";
                         this.parentNode.appendChild(newElement);
                     }
                     setTimeout(function() {
