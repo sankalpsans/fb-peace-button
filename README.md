@@ -3,3 +3,5 @@
 # Facebook Peace Day "Love" reaction Button 
 Peace button similar to what I remember Facebook created for the world peace day. Built in Javascript, zero dependencies.
 Works flawlessly on Chrome and Safari.
+
+Working demo: https://sankalpsans.github.io/2016/09/24/facebook-love-button.html
