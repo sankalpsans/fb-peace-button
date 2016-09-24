@@ -8,8 +8,7 @@
             margin: 0 auto;
         }
         
-        .love,
-        .love-clones {
+        .love {
             margin-top: 10px;
             position: absolute;
             display: block;
@@ -26,12 +25,28 @@
             transition: all .2s;
         }
         
-        .love-clones {
-            transition: all .5s;
-            transition-timing-function: cubic-bezier(0, 0.33, 0.08, 0.99);
+        .love:hover {
+            transform: scale(1.2);
+        }
+        .hem {
+            margin-top: 10px;
+            margin-left: 20px;
+            position: absolute;
+            display: block;
+            float: left;
+            background: #132;
+            height: 20px;
+            width: 20px;
+            font-size: 12px;
+            text-align: center;
+            line-height: 20px;
+            border-radius: 10px;
+            color: #fff;
+            cursor: pointer;
+            transition: all .2s;
         }
         
-        .love:hover {
+        .hem:hover {
             transform: scale(1.2);
         }
         
@@ -50,6 +65,9 @@
         <div class="heart-holder">
             <span class="love">♥</span>
         </div>
+        <div class="hem-holder">
+            <span class="hem">H</span>
+        </div>
 
     </div>
 </body>
@@ -63,7 +81,8 @@
                 this.addEventListener("click", function explode() {
                     for(var i = 0; i < numberOfHearts; i += 1) {
                         var newElement = this.cloneNode(true);
-                        newElement.className = "love-clones";
+                        var completeStyle = window.getComputedStyle(this, null).cssText;
+                        newElement.style.cssText = completeStyle;
                         this.parentNode.appendChild(newElement);
                         var holder = this.parentNode;
                     }
@@ -71,23 +90,21 @@
                         for(var i = 1; i < domToClone.parentNode.children.length; i += 1) {
                             var thisHeart = domToClone.parentNode.children[i];
                             thisHeart.style.transform = "scale(" + Math.random() * varianceInSize + ")"+
-                            //" rotate("+(1 - Math.random()) * sputter+"deg) "+
                             " translate("+(Math.random() - .5) / 2 * length+"px, "+(Math.random() + .2) / 2 * length+"px)";
                         }
                     }, delay);
                     setTimeout(function() {
-                        //return;
                         for(var i = 1; i < domToClone.parentNode.children.length; i += 1) {
                             var thisHeart = domToClone.parentNode.children[i];
                             thisHeart.style.transition = "all "+(Math.random() * 2)+"s";
                             thisHeart.style.opacity = "0";
-                            //thisHeart.style.transform = thisHeart.style.transform.replace(/scale\([0-9]*\.[0-9]*\)/g, 'scale(0)');
                         }
                     }, delay);
                     
                 });
             }
             document.querySelector('.love').multiply();
+            document.querySelector('.hem').multiply();
             </script>
 
 </html>
