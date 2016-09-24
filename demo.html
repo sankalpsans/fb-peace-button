@@ -78,7 +78,9 @@
             var length = -200;
             HTMLElement.prototype.multiply = function() {
                 var domToClone = this;
+                this.style.zIndex = "2";
                 this.addEventListener("click", function explode() {
+                    
                     for(var i = 0; i < numberOfHearts; i += 1) {
                         var newElement = this.cloneNode(true);
                         var completeStyle = window.getComputedStyle(this, null).cssText;
@@ -90,6 +92,7 @@
                         newElement.setAttribute("finalXTranslation", finalXTranslation);
                         newElement.setAttribute("finalYTranslation", finalYTranslation);
                         newElement.setAttribute("scale", scale);
+                        newElement.style.zIndex="1";
                         newElement.style.transform = "rotate("+ angle +"deg) ";
                         this.parentNode.appendChild(newElement);
                     }
