@@ -1,0 +1,93 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            width: 500px;
+            margin: 0 auto;
+        }
+        
+        .love,
+        .love-clones {
+            margin-top: 10px;
+            position: absolute;
+            display: block;
+            float: left;
+            background: #de2a85;
+            height: 20px;
+            width: 20px;
+            font-size: 12px;
+            text-align: center;
+            line-height: 20px;
+            border-radius: 10px;
+            color: #fff;
+            cursor: pointer;
+            transition: all .2s;
+        }
+        
+        .love-clones {
+            transition: all .5s;
+            transition-timing-function: cubic-bezier(0, 0.33, 0.08, 0.99);
+        }
+        
+        .love:hover {
+            transform: scale(1.2);
+        }
+        
+        .one-post {
+            background: #ddd;
+            width: 100%;
+            height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="holder">
+        <div class="one-post">
+        </div>
+        <div class="heart-holder">
+            <span class="love">♥</span>
+        </div>
+
+    </div>
+</body>
+<script>
+            var numberOfHearts = 40;
+            var varianceInSize = 3;
+            var delay = 200; //milliseconds
+            var length = -200;
+            HTMLElement.prototype.multiply = function() {
+                var domToClone = this;
+                this.addEventListener("click", function explode() {
+                    for(var i = 0; i < numberOfHearts; i += 1) {
+                        var newElement = this.cloneNode(true);
+                        newElement.className = "love-clones";
+                        this.parentNode.appendChild(newElement);
+                        var holder = this.parentNode;
+                    }
+                    setTimeout(function() {
+                        for(var i = 1; i < domToClone.parentNode.children.length; i += 1) {
+                            var thisHeart = domToClone.parentNode.children[i];
+                            thisHeart.style.transform = "scale(" + Math.random() * varianceInSize + ")"+
+                            //" rotate("+(1 - Math.random()) * sputter+"deg) "+
+                            " translate("+(Math.random() - .5) / 2 * length+"px, "+(Math.random() + .2) / 2 * length+"px)";
+                        }
+                    }, delay);
+                    setTimeout(function() {
+                        //return;
+                        for(var i = 1; i < domToClone.parentNode.children.length; i += 1) {
+                            var thisHeart = domToClone.parentNode.children[i];
+                            thisHeart.style.transition = "all "+(Math.random() * 2)+"s";
+                            thisHeart.style.opacity = "0";
+                            //thisHeart.style.transform = thisHeart.style.transform.replace(/scale\([0-9]*\.[0-9]*\)/g, 'scale(0)');
+                        }
+                    }, delay);
+                    
+                });
+            }
+            document.querySelector('.love').multiply();
+            </script>
+
+</html>
