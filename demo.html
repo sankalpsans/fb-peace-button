@@ -83,14 +83,22 @@
                         var newElement = this.cloneNode(true);
                         var completeStyle = window.getComputedStyle(this, null).cssText;
                         newElement.style.cssText = completeStyle;
+                        var finalXTranslation = (Math.random() - .5) / 2 * length;
+                        var finalYTranslation = (Math.random() + .2) / 2 * length;
+                        var angle = (finalYTranslation / finalXTranslation) * 45;
+                        var scale = Math.random() * varianceInSize;
+                        newElement.setAttribute("finalXTranslation", finalXTranslation);
+                        newElement.setAttribute("finalYTranslation", finalYTranslation);
+                        newElement.setAttribute("scale", scale);
+                        newElement.style.transform = "rotate("+(Math.atan(finalYTranslation / finalXTranslation) * (180 / Math.PI))+"deg) ";
                         this.parentNode.appendChild(newElement);
-                        var holder = this.parentNode;
                     }
                     setTimeout(function() {
                         for(var i = 1; i < domToClone.parentNode.children.length; i += 1) {
                             var thisHeart = domToClone.parentNode.children[i];
-                            thisHeart.style.transform = "scale(" + Math.random() * varianceInSize + ")"+
-                            " translate("+(Math.random() - .5) / 2 * length+"px, "+(Math.random() + .2) / 2 * length+"px)";
+                            thisHeart.style.transform = thisHeart.style.transform +
+                            " scale(" + thisHeart.attributes.scale.value + ")"+
+                            " translate("+thisHeart.attributes.finalXTranslation.value+"px, "+thisHeart.attributes.finalYTranslation.value+"px)";
                         }
                     }, delay);
                     setTimeout(function() {
